@@ -19,9 +19,10 @@
   const feedback = $('feedback'), statsEl = $('stats'), summary = $('summary');
 
   for (const [key, cont] of Object.entries(CONTINENTS)) contSel.add(new Option(`${cont.label} (${cont.countries.length})`, key));
-  contSel.add(new Option('Wszystkie kontynenty', 'all'));
+  contSel.add(new Option('Cały świat – losowe 30 państw', 'random30'));
+  contSel.add(new Option('Wszystkie kontynenty (cały świat)', 'all'));
   const hash = location.hash.slice(1);
-  if (CONTINENTS[hash] || hash === 'all') contSel.value = hash;
+  if (CONTINENTS[hash] || hash === 'all' || hash === 'random30') contSel.value = hash;
 
   // ---------- Mapa ----------
   const svg = d3.select('#map');
@@ -182,7 +183,17 @@
   function start(items) {
     if (learnMode) toggleLearn();
     const key = contSel.value;
-    const pool = items || (key === 'all' ? Object.values(ITEMS).flat() : ITEMS[key]);
+    let pool;
+    if (items) {
+      pool = items;
+    } else if (key === 'random30') {
+      const all = Object.values(ITEMS).flat();
+      pool = d3.shuffle(all.slice()).slice(0, 30);
+    } else if (key === 'all') {
+      pool = Object.values(ITEMS).flat();
+    } else {
+      pool = ITEMS[key];
+    }
     queue = d3.shuffle(pool.slice());
     total = pool.length;
     results = new Map(); firstTry = new Map(); stats = { ok: 0, bad: 0 };
@@ -277,7 +288,8 @@
     $('quizBox').classList.toggle('hidden', learnMode || !current);
     feedback.classList.toggle('hidden', learnMode);
     if (learnMode) {
-      renderMap(contSel.value === 'all' ? (current ? current.cont : 'europa') : contSel.value);
+      const isMulti = contSel.value === 'all' || contSel.value === 'random30';
+      renderMap(isMulti ? (current ? current.cont : 'europa') : contSel.value);
     } else if (current) {
       renderMap(current.cont);
     } else updateMap();
@@ -296,7 +308,10 @@
   $('nextBtn').onclick = () => next();
   $('restart').onclick = () => start();
   $('learnBtn').onclick = toggleLearn;
-  contSel.onchange = () => learnMode ? renderMap(contSel.value === 'all' ? 'europa' : contSel.value) : start();
+  contSel.onchange = () => {
+    const isMulti = contSel.value === 'all' || contSel.value === 'random30';
+    learnMode ? renderMap(isMulti ? 'europa' : contSel.value) : start();
+  };
   modeSel.onchange = () => { if (!learnMode) start(); };
 
   document.addEventListener('keydown', e => {
