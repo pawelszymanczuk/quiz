@@ -3,33 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Państwa i stolice – quiz</title>
+  <title>Państwa, stolice i miasta – quiz</title>
   <style>
     * { box-sizing: border-box; }
+    html { color-scheme: dark; }
     html, body { margin: 0; height: 100%; font-family: system-ui, Segoe UI, Roboto, sans-serif; background: #0f172a; color: #e2e8f0; }
     body { display: flex; flex-direction: column; }
     header { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px 12px; background: #1e293b; }
-    header h1 { font-size: 18px; margin: 0 12px 0 0; }
-    select, button, input { font: inherit; border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #e2e8f0; padding: 6px 10px; }
+    header h1 { font-size: 18px; margin: 0 4px 0 0; }
+    select, button, input { font: inherit; font-size: max(1rem, 1em); border-radius: 8px; border: 1px solid #475569; background: #0f172a; color: #e2e8f0; padding: 6px 10px; }
+    select:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid #60a5fa; outline-offset: 2px; }
     button { cursor: pointer; background: #334155; }
     button:hover { background: #475569; }
     button.primary { background: #2563eb; border-color: #2563eb; }
     button.primary:hover { background: #1d4ed8; }
+    .visually-hidden {
+      position: absolute;
+      clip-path: inset(50%);
+      overflow: hidden;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      padding: 0;
+      border: 0;
+      white-space: nowrap;
+    }
+    .seg { display: inline-flex; background: #0f172a; border: 1px solid #475569; border-radius: 8px; padding: 2px; gap: 2px; }
+    .seg label {
+      font-size: 15px;
+      color: #cbd5e1;
+      padding: 5px 11px;
+      border-radius: 6px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s, color 0.15s;
+    }
+    .seg label:hover { color: #f8fafc; }
+    .seg label:has(:checked) { background: #2563eb; color: #ffffff; font-weight: 600; }
+    .seg label:has(:focus-visible) { outline: 2px solid #60a5fa; outline-offset: 2px; }
     main { flex: 1; display: flex; min-height: 0; }
     #mapWrap { flex: 1; position: relative; min-height: 0; }
     #map { width: 100%; height: 100%; display: block; background: #bfdbfe; touch-action: none; }
     .country { fill: #e5e7eb; stroke: #64748b; stroke-width: 0.6; vector-effect: non-scaling-stroke; }
+    .country.city-bg { fill: #f8fafc; }
     .country.quiz { fill: #fef3c7; }
     .country.done-ok { fill: #bbf7d0; }
     .country.done-bad { fill: #fecaca; }
     .country.target { fill: #ef4444; stroke: #7f1d1d; stroke-width: 1.5; }
     .country.learn:hover { fill: #fde68a; cursor: pointer; }
-    .marker { fill: none; stroke: #dc2626; stroke-width: 3; vector-effect: non-scaling-stroke; }
-    .marker-dot { fill: #ef4444; stroke: #7f1d1d; vector-effect: non-scaling-stroke; }
+    .marker { fill: none; stroke: #dc2626; stroke-width: 2.8; vector-effect: non-scaling-stroke; pointer-events: none; }
+    .marker-dot { fill: #ef4444; stroke: #0f172a; stroke-width: 1; vector-effect: non-scaling-stroke; }
+    .city-target-dot { fill: #ef4444; stroke: #ffffff; stroke-width: 1.8; vector-effect: non-scaling-stroke; }
     #zoomBtns { position: absolute; right: 10px; top: 10px; display: flex; flex-direction: column; gap: 6px; }
-    #zoomBtns button { width: 40px; height: 40px; padding: 0; font-size: 18px; }
+    #zoomBtns button { width: 42px; height: 42px; padding: 0; font-size: 18px; }
     aside { width: 340px; padding: 14px; background: #1e293b; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
-    label { font-size: 13px; color: #94a3b8; }
+    aside label { display: block; margin-bottom: 4px; font-size: 13px; color: #94a3b8; }
     aside input[type=text] { width: 100%; font-size: 17px; padding: 9px 10px; }
     .row { display: flex; gap: 8px; flex-wrap: wrap; }
     .row button { flex: 1; padding: 10px; }
@@ -48,24 +76,28 @@
 </head>
 <body>
   <header>
-    <h1>🌍 Państwa i stolice</h1>
-    <select id="continent"></select>
-    <select id="mode">
+    <h1>🌍 Geografia</h1>
+    <div class="seg" role="radiogroup" aria-label="Kategoria quizu">
+      <label><input type="radio" name="category" value="countries" class="visually-hidden" checked>🏳️ Państwa</label>
+      <label><input type="radio" name="category" value="cities" class="visually-hidden">🏙️ Miasta</label>
+    </div>
+    <select id="continent" aria-label="Region lub kontynent"></select>
+    <select id="mode" aria-label="Tryb pytań">
       <option value="both">Państwo + stolica</option>
       <option value="name">Tylko państwo</option>
       <option value="capital">Tylko stolica</option>
     </select>
-    <button id="restart" class="primary">Start / od nowa</button>
-    <button id="learnBtn">📖 Tryb nauki</button>
+    <button id="restart" type="button" class="primary">Start / od nowa</button>
+    <button id="learnBtn" type="button">📖 Tryb nauki</button>
   </header>
   <main>
     <div id="mapWrap">
       <svg id="map"></svg>
       <div id="zoomBtns">
-        <button id="zIn" title="Przybliż">+</button>
-        <button id="zOut" title="Oddal">−</button>
-        <button id="zTarget" title="Przybliż do zaznaczonego">🎯</button>
-        <button id="zReset" title="Cały kontynent">⟲</button>
+        <button id="zIn" type="button" title="Przybliż">+</button>
+        <button id="zOut" type="button" title="Oddal">−</button>
+        <button id="zTarget" type="button" title="Przybliż do zaznaczonego">🎯</button>
+        <button id="zReset" type="button" title="Cały region">⟲</button>
       </div>
     </div>
     <aside>
@@ -73,22 +105,22 @@
       <div id="quizBox">
         <div id="given" class="hidden"></div>
         <div id="nameField">
-          <label for="nameIn">Państwo</label>
-          <input id="nameIn" type="text" autocomplete="off" autocapitalize="words" spellcheck="false">
+          <label id="nameLabel" for="nameIn">Państwo</label>
+          <input id="nameIn" name="nameIn" type="text" autocomplete="off" autocorrect="off" autocapitalize="words" spellcheck="false" enterkeyhint="next">
         </div>
         <div id="capField" style="margin-top:8px">
           <label for="capIn">Stolica</label>
-          <input id="capIn" type="text" autocomplete="off" autocapitalize="words" spellcheck="false">
+          <input id="capIn" name="capIn" type="text" autocomplete="off" autocorrect="off" autocapitalize="words" spellcheck="false" enterkeyhint="done">
         </div>
         <div class="row" style="margin-top:10px">
-          <button id="checkBtn" class="primary">Sprawdź (Enter)</button>
-          <button id="skipBtn">Nie wiem</button>
+          <button id="checkBtn" type="button" class="primary">Sprawdź (Enter)</button>
+          <button id="skipBtn" type="button">Nie wiem</button>
         </div>
         <div class="row hidden" id="nextRow" style="margin-top:10px">
-          <button id="nextBtn" class="primary">Dalej (Enter) →</button>
+          <button id="nextBtn" type="button" class="primary">Dalej (Enter) →</button>
         </div>
       </div>
-      <div id="feedback"></div>
+      <div id="feedback" role="status" aria-live="polite"></div>
       <div id="summary" class="hidden"></div>
       <div id="learnInfo" class="hidden">Kliknij państwo na mapie, aby zobaczyć jego nazwę i stolicę.</div>
     </aside>

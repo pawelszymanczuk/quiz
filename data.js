@@ -182,3 +182,173 @@ window.CONTINENTS = {
     ]
   }
 };
+
+// Miasta świata – spis PP
+// n = nazwa miasta PL, p = [lon, lat], k = państwo PL (wyświetlane po odpowiedzi / w trybie nauki), an = alternatywne nazwy
+window.CITY_REGIONS = {
+  europa: {
+    label: 'Europa',
+    rotate: [-14, -50],
+    fitPoints: [[-11, 36], [41, 36], [-11, 62], [41, 62]],
+    cities: [
+      { n: 'Dublin', p: [-6.2603, 53.3498], k: 'Irlandia' },
+      { n: 'Glasgow', p: [-4.2518, 55.8642], k: 'Wielka Brytania' },
+      { n: 'Londyn', p: [-0.1276, 51.5072], k: 'Wielka Brytania', an: ['London'] },
+      { n: 'Paryż', p: [2.3522, 48.8566], k: 'Francja', an: ['Paris'] },
+      { n: 'Barcelona', p: [2.1734, 41.3851], k: 'Hiszpania' },
+      { n: 'Madryt', p: [-3.7038, 40.4168], k: 'Hiszpania', an: ['Madrid'] },
+      { n: 'Lizbona', p: [-9.16, 38.75], k: 'Portugalia', an: ['Lisboa', 'Lisbona'] },
+      { n: 'Rzym', p: [12.4964, 41.9028], k: 'Włochy', an: ['Roma', 'Rome'] },
+      { n: 'Berlin', p: [13.4050, 52.5200], k: 'Niemcy' },
+      { n: 'Zagłębie Ruhry', p: [7.0116, 51.4556], k: 'Niemcy', an: ['Zagłębie Ruhry (konurbacja)', 'Konurbacja Zagłębia Ruhry', 'Ruhra', 'Ruhr'] },
+      { n: 'Amsterdam', p: [4.9041, 52.3676], k: 'Holandia' },
+      { n: 'Bruksela', p: [4.3517, 50.8503], k: 'Belgia', an: ['Brussels'] },
+      { n: 'Sztokholm', p: [17.90, 59.35], k: 'Szwecja', an: ['Stockholm'] },
+      { n: 'Warszawa', p: [21.0122, 52.2297], k: 'Polska' },
+      { n: 'Budapeszt', p: [19.0402, 47.4979], k: 'Węgry', an: ['Budapest'] },
+      { n: 'Praga', p: [14.4378, 50.0755], k: 'Czechy', an: ['Praha', 'Prague'] },
+      { n: 'Kijów', p: [30.5234, 50.4501], k: 'Ukraina', an: ['Kyiv', 'Kiev'] },
+      { n: 'Stambuł', p: [28.90, 41.04], k: 'Turcja', an: ['Istambuł', 'Istanbul'] },
+      { n: 'Petersburg', p: [30.3351, 59.9343], k: 'Rosja', an: ['Sankt Petersburg', 'St. Petersburg', 'St Petersburg'] },
+      { n: 'Moskwa', p: [37.6173, 55.7558], k: 'Rosja', an: ['Moscow'] }
+    ]
+  },
+
+  afryka: {
+    label: 'Afryka',
+    rotate: [-17, -2],
+    fitPoints: [[-19, -36], [52, -36], [-19, 38], [52, 38]],
+    cities: [
+      { n: 'Kapsztad', p: [18.4241, -33.9249], k: 'RPA', an: ['Cape Town'] },
+      { n: 'Durban', p: [31.0218, -29.8587], k: 'RPA' },
+      { n: 'Johannesburg', p: [28.0473, -26.2041], k: 'RPA', an: ['Joburg'] },
+      { n: 'Antananarywa', p: [47.5079, -18.8792], k: 'Madagaskar', an: ['Antananarivo'] },
+      { n: 'Lusaka', p: [28.2871, -15.3875], k: 'Zambia' },
+      { n: 'Luanda', p: [13.2343, -8.8390], k: 'Angola' },
+      { n: 'Mogadiszu', p: [45.3182, 2.0469], k: 'Somalia', an: ['Mogadishu'] },
+      { n: 'Nairobi', p: [36.8219, -1.2921], k: 'Kenia' },
+      { n: 'Kinszasa', p: [15.2663, -4.4419], k: 'DR Konga', an: ['Kinshasa'] },
+      { n: 'Addis Abeba', p: [38.7578, 9.0320], k: 'Etiopia', an: ['Addis Ababa', 'Adis Abeba'] },
+      { n: 'Lagos', p: [3.3792, 6.5244], k: 'Nigeria' },
+      { n: 'Abidżan', p: [-4.0083, 5.3600], k: 'Wybrzeże Kości Słoniowej', an: ['Abidjan'] },
+      { n: 'Dakar', p: [-17.4677, 14.7167], k: 'Senegal' },
+      { n: 'Rabat', p: [-6.8498, 34.0209], k: 'Maroko' },
+      { n: 'Algier', p: [3.0588, 36.7538], k: 'Algieria', an: ['Algiers'] },
+      { n: 'Tunis', p: [10.1815, 36.8065], k: 'Tunezja' },
+      { n: 'Trypolis', p: [13.1913, 32.8872], k: 'Libia', an: ['Tripoli', 'Trypoli'] },
+      { n: 'Kair', p: [31.2357, 30.0444], k: 'Egipt', an: ['Cairo', 'Kairo'] }
+    ]
+  },
+
+  azja: {
+    label: 'Azja',
+    rotate: [-90, -28],
+    fitPoints: [[28, -9], [146, -9], [28, 58], [146, 58]],
+    cities: [
+      { n: 'Ankara', p: [32.8597, 39.9334], k: 'Turcja' },
+      { n: 'Tel-Awiw', p: [34.7818, 32.0853], k: 'Izrael', an: ['Tel Awiw', 'Tel Aviv', 'Tel Awiw-Jafa'] },
+      { n: 'Bagdad', p: [44.3661, 33.3152], k: 'Irak', an: ['Baghdad'] },
+      { n: 'Kuwejt', p: [47.9774, 29.3759], k: 'Kuwejt', an: ['Kuwait', 'Kuwait City', 'Miasto Kuwejt'] },
+      { n: 'Dubaj', p: [55.2708, 25.2048], k: 'Zjednoczone Emiraty Arabskie', an: ['Dubai'] },
+      { n: 'Rijad', p: [46.6753, 24.7136], k: 'Arabia Saudyjska', an: ['Riyadh'] },
+      { n: 'Teheran', p: [51.3890, 35.6892], k: 'Iran', an: ['Tehran'] },
+      { n: 'Baku', p: [49.8671, 40.4093], k: 'Azerbejdżan' },
+      { n: 'Kabul', p: [69.2075, 34.5553], k: 'Afganistan' },
+      { n: 'Karaczi', p: [67.0011, 24.8607], k: 'Pakistan', an: ['Karachi'] },
+      { n: 'Islamabad', p: [73.0479, 33.6844], k: 'Pakistan' },
+      { n: 'Delhi', p: [77.2090, 28.6139], k: 'Indie', an: ['Nowe Delhi', 'New Delhi'] },
+      { n: 'Mumbai', p: [72.8777, 19.0760], k: 'Indie', an: ['Mumbaj', 'Bombaj'] },
+      { n: 'Bangalur', p: [77.5946, 12.9716], k: 'Indie', an: ['Bengaluru', 'Bangalore', 'Bangalor'] },
+      { n: 'Kalkuta', p: [88.3639, 22.5726], k: 'Indie', an: ['Kolkata', 'Calcutta'] },
+      { n: 'Dhaka', p: [90.4125, 23.8103], k: 'Bangladesz', an: ['Dakka', 'Dhakka'] },
+      { n: 'Bangkok', p: [100.5018, 13.7563], k: 'Tajlandia' },
+      { n: 'Kuala Lumpur', p: [101.6869, 3.1390], k: 'Malezja' },
+      { n: 'Singapur', p: [103.8198, 1.3521], k: 'Singapur', an: ['Singapore'] },
+      { n: 'Dżakarta', p: [106.8456, -6.2088], k: 'Indonezja', an: ['Jakarta'] },
+      { n: 'Manila', p: [120.9842, 14.5995], k: 'Filipiny' },
+      { n: 'Hanoi', p: [105.8342, 21.0278], k: 'Wietnam' },
+      { n: 'Tajpej', p: [121.5654, 25.0330], k: 'Tajwan', an: ['Taipei'] },
+      { n: 'Hongkong', p: [114.15, 22.38], k: 'Chiny', an: ['Hong Kong'] },
+      { n: 'Kanton', p: [113.2644, 23.1291], k: 'Chiny', an: ['Guangzhou'] },
+      { n: 'Szanghaj', p: [121.4737, 31.2304], k: 'Chiny', an: ['Shanghai'] },
+      { n: 'Pekin', p: [116.4074, 39.9042], k: 'Chiny', an: ['Beijing'] },
+      { n: 'Seul', p: [126.9780, 37.5665], k: 'Korea Południowa', an: ['Seoul'] },
+      { n: 'Sapporo', p: [141.3545, 43.0618], k: 'Japonia' },
+      { n: 'Tokio', p: [139.6917, 35.6895], k: 'Japonia', an: ['Tokyo'] },
+      { n: 'Osaka-Kobe-Kioto', p: [135.5023, 34.6937], k: 'Japonia', an: ['Kioto-Osaka-Kobe', 'Osaka-Kioto-Kobe', 'Keihanshin', 'Osaka Kobe Kioto'] },
+      { n: 'Władywostok', p: [131.8869, 43.1155], k: 'Rosja', an: ['Vladivostok'] },
+      { n: 'Taszkent', p: [69.2401, 41.2995], k: 'Uzbekistan', an: ['Tashkent', 'Taszkient'] },
+      { n: 'Nur-Sułtan (Astana)', p: [71.4491, 51.1694], k: 'Kazachstan', an: ['Astana', 'Nur-Sułtan', 'Nursultan'] },
+      { n: 'Almaty', p: [76.8897, 43.2389], k: 'Kazachstan', an: ['Ałmaty', 'Ałma-Ata', 'Alma-Ata'] },
+      { n: 'Irkuck', p: [104.2964, 52.2869], k: 'Rosja', an: ['Irkutsk'] },
+      { n: 'Nowosybirsk', p: [82.9346, 55.0084], k: 'Rosja', an: ['Novosibirsk'] }
+    ]
+  },
+
+  ameryka_pn: {
+    label: 'Ameryka Północna',
+    rotate: [97, -39],
+    fitPoints: [[-127, 24], [-66, 24], [-127, 56], [-66, 56]],
+    cities: [
+      { n: 'Los Angeles', p: [-118.2437, 34.0522], k: 'Stany Zjednoczone', an: ['LA'] },
+      { n: 'San Francisco', p: [-122.4194, 37.7749], k: 'Stany Zjednoczone' },
+      { n: 'Seattle', p: [-122.3321, 47.6062], k: 'Stany Zjednoczone' },
+      { n: 'Vancouver', p: [-123.1207, 49.2827], k: 'Kanada' },
+      { n: 'Edmonton', p: [-113.4938, 53.5461], k: 'Kanada' },
+      { n: 'Dallas', p: [-96.7970, 32.7767], k: 'Stany Zjednoczone' },
+      { n: 'Houston', p: [-95.3698, 29.7604], k: 'Stany Zjednoczone' },
+      { n: 'Nowy Orlean', p: [-90.0715, 29.9511], k: 'Stany Zjednoczone', an: ['New Orleans'] },
+      { n: 'Miami', p: [-80.26, 25.78], k: 'Stany Zjednoczone' },
+      { n: 'Atlanta', p: [-84.3880, 33.7490], k: 'Stany Zjednoczone' },
+      { n: 'Chicago', p: [-87.6298, 41.8781], k: 'Stany Zjednoczone' },
+      { n: 'Detroit', p: [-83.0458, 42.3314], k: 'Stany Zjednoczone' },
+      { n: 'Toronto', p: [-79.3832, 43.6532], k: 'Kanada' },
+      { n: 'Ottawa', p: [-75.6972, 45.4215], k: 'Kanada' },
+      { n: 'Montreal', p: [-73.5673, 45.5017], k: 'Kanada' },
+      { n: 'Waszyngton', p: [-77.0369, 38.9072], k: 'Stany Zjednoczone', an: ['Washington', 'Waszyngton DC', 'Washington DC'] },
+      { n: 'Filadelfia', p: [-75.1652, 39.9526], k: 'Stany Zjednoczone', an: ['Philadelphia'] },
+      { n: 'Nowy Jork', p: [-73.92, 40.85], k: 'Stany Zjednoczone', an: ['New York', 'NYC'] },
+      { n: 'Boston', p: [-71.0589, 42.3601], k: 'Stany Zjednoczone' }
+    ]
+  },
+
+  ameryka_lac: {
+    label: 'Ameryka Łacińska',
+    rotate: [70, 8],
+    fitPoints: [[-108, 28], [-34, 28], [-108, -38], [-34, -42]],
+    cities: [
+      { n: 'Buenos Aires', p: [-58.3816, -34.6037], k: 'Argentyna' },
+      { n: 'Santiago', p: [-70.6693, -33.4489], k: 'Chile', an: ['Santiago de Chile'] },
+      { n: 'Rosario', p: [-60.6393, -32.9468], k: 'Argentyna' },
+      { n: 'Montevideo', p: [-56.1645, -34.9011], k: 'Urugwaj' },
+      { n: 'São Paulo', p: [-46.6333, -23.5505], k: 'Brazylia', an: ['Sao Paulo'] },
+      { n: 'Rio de Janeiro', p: [-43.25, -22.88], k: 'Brazylia', an: ['Rio'] },
+      { n: 'Belo Horizonte', p: [-43.9378, -19.9167], k: 'Brazylia' },
+      { n: 'Salvador', p: [-38.48, -12.90], k: 'Brazylia', an: ['Salwador', 'Salvador da Bahia'] },
+      { n: 'La Paz', p: [-68.1193, -16.4897], k: 'Boliwia' },
+      { n: 'Asunción', p: [-57.5759, -25.2637], k: 'Paragwaj', an: ['Asuncion'] },
+      { n: 'Lima', p: [-77.0428, -12.0464], k: 'Peru' },
+      { n: 'Quito', p: [-78.4678, -0.1807], k: 'Ekwador', an: ['Kito'] },
+      { n: 'Bogota', p: [-74.0721, 4.7110], k: 'Kolumbia', an: ['Bogotá'] },
+      { n: 'Caracas', p: [-66.9036, 10.4806], k: 'Wenezuela', an: ['Karakas'] },
+      { n: 'Mexico City', p: [-99.1332, 19.4326], k: 'Meksyk', an: ['Meksyk', 'Miasto Meksyk', 'Ciudad de Mexico'] },
+      { n: 'Hawana', p: [-82.3666, 23.1136], k: 'Kuba', an: ['Havana', 'La Habana'] },
+      { n: 'Panama', p: [-79.5199, 8.9824], k: 'Panama', an: ['Panama City', 'Miasto Panama'] },
+      { n: 'Monterrey', p: [-100.3161, 25.6866], k: 'Meksyk' },
+      { n: 'Guadalajara', p: [-103.3496, 20.6597], k: 'Meksyk' }
+    ]
+  },
+
+  oceania: {
+    label: 'Australia z Oceanią',
+    rotate: [-145, 28],
+    fitPoints: [[112, -11], [179, -11], [112, -45], [179, -47]],
+    cities: [
+      { n: 'Auckland', p: [174.7633, -36.8485], k: 'Nowa Zelandia' },
+      { n: 'Sydney', p: [151.2093, -33.8688], k: 'Australia' },
+      { n: 'Brisbane', p: [153.0251, -27.4698], k: 'Australia' },
+      { n: 'Melbourne', p: [144.9631, -37.8136], k: 'Australia' },
+      { n: 'Perth', p: [115.8605, -31.9505], k: 'Australia' }
+    ]
+  }
+};
